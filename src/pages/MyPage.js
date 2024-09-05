@@ -7,8 +7,9 @@ const MyPage = () => {
   const mypokemons = usePokeStore((state) => state.mypokemons);
   const removePoke = usePokeStore((state) => state.removePoke);
 
-  const handleRemovePokemon = (id) => {
+  const handleRemovePokemon = (id, name) => {
     removePoke(id);
+    alert(`${name} 을/를 놓아줬다!`);
   };
   return (
     <Wrapper>
@@ -26,7 +27,9 @@ const MyPage = () => {
                 <p>ID: {pokemon.id}</p>
                 <div
                   className="catch"
-                  onClick={() => handleRemovePokemon(pokemon.id)}
+                  onClick={() =>
+                    handleRemovePokemon(pokemon.id, pokemon.pokename)
+                  }
                 >
                   <img src={pokeball} className="pokeball" />
                   <p>놓아준다</p>
@@ -51,7 +54,7 @@ const Wrapper = styled.div`
 const PokemonList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 300px);
-  gap: 20px 20px;
+  gap: 0 20px;
   margin: auto;
 `;
 const PokemonItem = styled.div`

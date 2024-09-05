@@ -36,7 +36,7 @@ const LandingPage = () => {
       alert("이미 잡은 포켓몬이에요");
     } else {
       addPoke(id, img, pokename);
-      alert(`${pokename}을 잡았다!`);
+      alert(`${pokename} 을/를 잡았다!`);
     }
   };
   return (
