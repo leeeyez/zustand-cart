@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import pokeball from "../assets/pokeball.png";
+import usePokeStore from "../store/pokeStore";
 
 const LandingPage = () => {
   const [pokemonData, setPokemonData] = useState([]);
+  const addPoke = usePokeStore((state) => state.addPoke);
+  const mypokemons = usePokeStore((state) => state.mypokemons);
   useEffect(() => {
     const fetchData = async () => {
       const allPokemonData = [];
@@ -25,6 +28,16 @@ const LandingPage = () => {
 
     fetchData();
   }, []);
+
+  const handleAddPokemon = (id, img, pokename) => {
+    console.log(id, pokename);
+    const isalreadyAdd = mypokemons.find((pokemon) => pokemon.id === id);
+    if (isalreadyAdd) {
+      alert("이미 잡은 포켓몬이에요");
+    } else {
+      addPoke(id, img, pokename);
+    }
+  };
   return (
     <Wrapper>
       <div>
@@ -39,7 +52,16 @@ const LandingPage = () => {
                 />
                 <p className="name">{pokemon.korean_name}</p>
                 <p>ID: {pokemon.id}</p>
-                <div className="catch">
+                <div
+                  className="catch"
+                  onClick={() =>
+                    handleAddPokemon(
+                      pokemon.id,
+                      pokemon.sprites.front_default,
+                      pokemon.korean_name
+                    )
+                  }
+                >
                   <img src={pokeball} className="pokeball" />
                   <p>잡는다!</p>
                 </div>
@@ -63,7 +85,7 @@ const Wrapper = styled.div`
 const PokemonList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 300px);
-  gap: 0 20px;
+  gap: 20px 20px;
   margin: auto;
 `;
 const PokemonItem = styled.div`
