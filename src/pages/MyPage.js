@@ -54,7 +54,7 @@ const Wrapper = styled.div`
 const PokemonList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 300px);
-  gap: 0 20px;
+  gap: 20px 20px;
   margin: auto;
 `;
 const PokemonItem = styled.div`
